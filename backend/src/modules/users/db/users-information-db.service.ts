@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { isUUID } from 'class-validator';
 import { LoggerService } from '@common/logger/logger.service';
 import {
 	buildFilterConditions,
@@ -7,21 +6,22 @@ import {
 } from '@common/helpers/filter.helpers';
 import { buildPaginationResponse } from '@common/helpers/pagination.helper';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '@entities/users/user.entity';
 import { Repository } from 'typeorm';
 import { PaginationDto } from '@common/dto/pagination.dto';
+import { UserInformation } from '@entities/users/user-info.entity';
 
 @Injectable()
-export class UsersService {
+export class UsersInformationDbService {
 	constructor(
-		@InjectRepository(User) private readonly userRepository: Repository<User>,
+		@InjectRepository(UserInformation)
+		private readonly userInformationRepository: Repository<UserInformation>,
 		private readonly loggerService: LoggerService,
 	) {}
 
 	async create(createDto: any) {
-		const user = this.userRepository.create(createDto);
+		const user = this.userInformationRepository.create(createDto);
 
-		return await this.userRepository.save(user).catch((error) => {
+		return await this.userInformationRepository.save(user).catch((error) => {
 			this.loggerService.error('Error al crear el usuario:', error);
 			throw new HttpException(error, HttpStatus.UNPROCESSABLE_ENTITY);
 		});
@@ -38,7 +38,7 @@ export class UsersService {
 				: {};
 
 		try {
-			const [data, total] = await this.userRepository.findAndCount({
+			const [data, total] = await this.userInformationRepository.findAndCount({
 				where,
 				skip: (page - 1) * limit,
 				take: limit,
@@ -58,17 +58,10 @@ export class UsersService {
 		}
 	}
 
-	async findOne(searchTerm: string): Promise<User> {
-		return await this.userRepository
-			.createQueryBuilder('user')
-			.leftJoinAndSelect('user.userInfo', 'userInfo')
-			.leftJoinAndSelect('userInfo.roles', 'roles')
-			.where(
-				isUUID(searchTerm)
-					? 'user.id = :searchTerm'
-					: 'user.email = :searchTerm',
-				{ searchTerm },
-			)
+	async findOne(searchTerm: string): Promise<UserInformation> {
+		return await this.userInformationRepository
+			.createQueryBuilder('userInfo')
+			.where('user.id = :searchTerm', { searchTerm })
 			.getOne()
 			.catch((error) => {
 				this.loggerService.error('Error al buscar el usuario:', error);
@@ -77,13 +70,13 @@ export class UsersService {
 	}
 
 	async update(id: string, updateDto: any) {
-		const user = await this.userRepository.preload({
+		const user = await this.userInformationRepository.preload({
 			id,
 			...updateDto,
 		});
 
 		if (user) {
-			return this.userRepository.save(user).catch((error) => {
+			return this.userInformationRepository.save(user).catch((error) => {
 				this.loggerService.error('Error al actualizar el usuario:', error);
 				throw new HttpException(error, HttpStatus.UNPROCESSABLE_ENTITY);
 			});
@@ -97,10 +90,10 @@ export class UsersService {
 	}
 
 	async remove(id: string) {
-		const user = await this.userRepository.findOneBy({ id });
+		const user = await this.userInformationRepository.findOneBy({ id });
 
 		if (user) {
-			return this.userRepository.softRemove(user).catch((error) => {
+			return this.userInformationRepository.softRemove(user).catch((error) => {
 				this.loggerService.error('Error al eliminar el usuario:', error);
 				throw new HttpException(error, HttpStatus.UNPROCESSABLE_ENTITY);
 			});

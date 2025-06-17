@@ -3,11 +3,13 @@ import {
 	CreateDateColumn,
 	DeleteDateColumn,
 	Entity,
+	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { UsersStatuses } from '@common/enums/users.enum';
+import { UserInformation } from '@entities/users/user-info.entity';
 
 @Entity('users')
 export class User {
@@ -47,4 +49,7 @@ export class User {
 	deletedAt: Date;
 
 	// ?=================== RELATIONS ===================
+
+	@OneToOne(() => UserInformation, (userInformation) => userInformation.user)
+	userInfo: UserInformation;
 }

@@ -4,17 +4,19 @@ import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
 
 @Injectable()
 export class DefaultTypeOrmConfigService implements TypeOrmOptionsFactory {
-  constructor(private configService: ConfigService) {}
+	constructor(private configService: ConfigService) {}
 
-  createTypeOrmOptions(): TypeOrmModuleOptions {
-    const configDatabase = this.configService.get('database');
+	createTypeOrmOptions(): TypeOrmModuleOptions {
+		const configDatabase = this.configService.get('database');
 
-    return {
-      ...configDatabase,
-      autoLoadEntities: true,
-      migrations: [__dirname + '/migrations/**/*{.ts,.js}'],
-      entities: [__dirname + '/entities/**/*{.ts,.js}'],
-      synchronize: false,
-    };
-  }
+		return {
+			...configDatabase,
+			autoLoadEntities: false,
+			entities: ['dist/entities/**/*{.ts,.js}'],
+			synchronize: true,
+			extra: {
+				charset: 'utf8mb4_unicode_ci',
+			},
+		};
+	}
 }
