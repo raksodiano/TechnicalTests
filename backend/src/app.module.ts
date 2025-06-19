@@ -12,6 +12,7 @@ import { OauthModule } from '@modules/oauth/oauth.module';
 import { UsersModule } from '@modules/users/users.module';
 import { LoggerModule } from '@common/logger/logger.module';
 import { AuthModule } from '@modules/auth/auth.module';
+import { DashboardModule } from '@modules/dashboard/dashboard.module';
 
 @Module({
 	imports: [
@@ -19,6 +20,7 @@ import { AuthModule } from '@modules/auth/auth.module';
 		AuthModule,
 		OauthModule,
 		UsersModule,
+		DashboardModule,
 		ConfigModule.forRoot({
 			load: [configuration],
 			isGlobal: true,

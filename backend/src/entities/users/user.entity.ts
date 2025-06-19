@@ -3,6 +3,7 @@ import {
 	CreateDateColumn,
 	DeleteDateColumn,
 	Entity,
+	OneToMany,
 	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
@@ -10,6 +11,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import { UsersStatuses } from '@common/enums/users.enum';
 import { UserInformation } from '@entities/users/user-info.entity';
+import { DashboardEntity } from '@entities/dashboard/dashboard.entity';
 
 @Entity('users')
 export class User {
@@ -52,4 +54,7 @@ export class User {
 
 	@OneToOne(() => UserInformation, (userInformation) => userInformation.user)
 	userInfo: UserInformation;
+
+	@OneToMany(() => DashboardEntity, (item) => item.user)
+	dashboards: DashboardEntity[];
 }

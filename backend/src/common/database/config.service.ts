@@ -13,7 +13,6 @@ export class DefaultTypeOrmConfigService implements TypeOrmOptionsFactory {
 			...configDatabase,
 			autoLoadEntities: false,
 			entities: ['dist/entities/**/*{.ts,.js}'],
-			synchronize: true,
 			extra: {
 				charset: 'utf8mb4_unicode_ci',
 			},

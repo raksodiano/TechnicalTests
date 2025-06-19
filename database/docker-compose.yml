@@ -9,7 +9,7 @@ services:
   mysql:
     image: mysql:8.0
     container_name: mysql-db
-    restart: always
+    restart: no
     environment:
       MYSQL_ROOT_PASSWORD: rootpass
       MYSQL_DATABASE: myappdb

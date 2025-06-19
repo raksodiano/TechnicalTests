@@ -1,0 +1,43 @@
+.drag-drop-container {
+  min-height: 100px;
+}
+
+.drag-drop-item {
+  transition: all 0.2s ease;
+}
+
+.drag-drop-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.drag-handle {
+  cursor: grab;
+}
+
+.drag-handle:active {
+  cursor: grabbing;
+}
+
+.drag-drop-container {
+  width: 100%;
+}
+
+.drag-drop-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: flex-start;
+  min-height: 100px;
+  transition: all 0.3s ease;
+}
+
+.drag-drop-item {
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Mantener la relación de aspecto en los items */
+.drag-drop-item > div {
+  height: 100%;
+}

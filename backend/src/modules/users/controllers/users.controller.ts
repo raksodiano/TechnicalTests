@@ -20,31 +20,31 @@ export class UsersController {
 	constructor(private readonly usersDbService: UsersDbService) {}
 
 	@UseGuards(JwtAuthGuard, PermissionsGuard)
-	@Post()
-	async create(@Body() createUserDto: any) {
-		return this.usersDbService.create(createUserDto);
+	@Post('create')
+	async create(@Body() createDto: any) {
+		return this.usersDbService.create(createDto);
 	}
 
 	@UseGuards(JwtAuthGuard, PermissionsGuard)
-	@Get()
+	@Get('all')
 	async findAll(@Query() paginationDto: PaginationDto) {
 		return await this.usersDbService.findAll(paginationDto);
 	}
 
 	@UseGuards(JwtAuthGuard, PermissionsGuard)
-	@Get(':searchTerm')
+	@Get('one/:searchTerm')
 	async findOne(@Param('searchTerm') searchTerm: string): Promise<User> {
 		return this.usersDbService.findOne(searchTerm);
 	}
 
 	@UseGuards(JwtAuthGuard, PermissionsGuard)
-	@Patch(':id')
-	async update(@Param('id') id: string, @Body() updateUserDto: any) {
-		return this.usersDbService.update(id, updateUserDto);
+	@Patch('update/:id')
+	async update(@Param('id') id: string, @Body() updateDto: any) {
+		return this.usersDbService.update(id, updateDto);
 	}
 
 	@UseGuards(JwtAuthGuard, PermissionsGuard)
-	@Delete(':id')
+	@Delete('delete/:id')
 	async remove(@Param('id') id: string) {
 		return this.usersDbService.remove(id);
 	}

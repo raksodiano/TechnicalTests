@@ -8,9 +8,9 @@ import { LoginDTO } from '@modules/oauth/dtos/login.dto';
 export class OauthController {
 	constructor(private readonly oauthLogicService: OauthLogicService) {}
 
-	@Get('guess')
-	async guessToken() {
-		return await this.oauthLogicService.guessToken();
+	@Get('guest')
+	async guestToken() {
+		return await this.oauthLogicService.guestToken();
 	}
 
 	@UseGuards(JwtAuthGuard, PermissionsGuard)

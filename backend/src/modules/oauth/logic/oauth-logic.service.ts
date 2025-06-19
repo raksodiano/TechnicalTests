@@ -12,7 +12,7 @@ export class OauthLogicService {
 		private usersDbService: UsersDbService,
 	) {}
 
-	async guessToken() {
+	async guestToken() {
 		return {
 			access_token: await this.jwtService.signAsync({
 				permissions: [],
@@ -50,6 +50,7 @@ export class OauthLogicService {
 				permissions: [],
 				user_id: user.id,
 			}),
+			user,
 		};
 	}
 }

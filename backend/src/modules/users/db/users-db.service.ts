@@ -62,6 +62,7 @@ export class UsersDbService {
 		return await this.userRepository
 			.createQueryBuilder('user')
 			.leftJoinAndSelect('user.userInfo', 'userInfo')
+			.leftJoinAndSelect('user.dashboards', 'dashboards')
 			.where(
 				isUUID(searchTerm)
 					? 'user.id = :searchTerm'
