@@ -53,4 +53,5 @@ npm run dev
 ## Nota
 
 - Los archivos .env fueron incluidos únicamente con fines de prueba.
-- La sección tiene un tiempo de 5min
+- La sesión tiene un tiempo de 5min
+- Me gustó la idea de la prueba, despues de la evaluación comenzaré a ir mejorandola
