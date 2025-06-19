@@ -46,7 +46,7 @@ export class DashboardController {
 
 	@UseGuards(JwtAuthGuard, PermissionsGuard)
 	@Patch('update/:id')
-	async update(@Param('id') id: string, @Body() updateDto: any) {
+	async update(@Param('id') id: number, @Body() updateDto: any) {
 		return this.dashboardDbService.update(id, updateDto);
 	}
 

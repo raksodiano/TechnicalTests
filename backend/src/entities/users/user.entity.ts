@@ -4,40 +4,40 @@ import {
 	DeleteDateColumn,
 	Entity,
 	OneToMany,
-	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
 import { v4 as uuidv4 } from 'uuid';
 import { UsersStatuses } from '@common/enums/users.enum';
-import { UserInformation } from '@entities/users/user-info.entity';
 import { DashboardEntity } from '@entities/dashboard/dashboard.entity';
 
 @Entity('users')
 export class User {
 	// ?=================== MAIN DATA COLUMNS ===================
 
-	@PrimaryGeneratedColumn('uuid')
+	@PrimaryGeneratedColumn()
 	id: string = uuidv4();
 
-	@Column('varchar', {
-		comment: 'Email del usuario',
+	@Column({
+		type: 'varchar',
 		length: 255,
 		unique: true,
+		comment: 'Email del usuario',
 	})
 	email: string;
 
-	@Column('varchar', {
-		comment: 'Contraseña del usuario',
+	@Column({
+		type: 'varchar',
 		length: 255,
+		comment: 'Contraseña del usuario',
 	})
 	password: string;
 
 	@Column({
-		comment: 'Estado de la cuenta del usuario',
 		type: 'enum',
 		enum: UsersStatuses,
-		default: UsersStatuses.DISABLED,
+		default: UsersStatuses.ENABLED,
+		comment: 'Estado de la cuenta del usuario',
 	})
 	status: string;
 
@@ -51,9 +51,6 @@ export class User {
 	deletedAt: Date;
 
 	// ?=================== RELATIONS ===================
-
-	@OneToOne(() => UserInformation, (userInformation) => userInformation.user)
-	userInfo: UserInformation;
 
 	@OneToMany(() => DashboardEntity, (item) => item.user)
 	dashboards: DashboardEntity[];

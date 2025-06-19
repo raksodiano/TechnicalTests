@@ -12,7 +12,7 @@ export class DashboardLogicService {
 	async create(createDto: any) {
 		const user = await this.usersDbService.findOne(createDto?.userId);
 
-		const changeStatus = user.dashboards.map(({ id }) => ({
+		const changeStatus = (user?.dashboards || []).map(({ id }) => ({
 			id,
 			status: 'DISABLED',
 		}));

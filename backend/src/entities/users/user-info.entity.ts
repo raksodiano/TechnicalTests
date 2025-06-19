@@ -3,12 +3,9 @@ import {
 	CreateDateColumn,
 	DeleteDateColumn,
 	Entity,
-	JoinColumn,
-	OneToOne,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
 } from 'typeorm';
-import { User } from './user.entity';
 import { Sex, UsersStatuses } from '@common/enums/users.enum';
 
 @Entity('user_information')
@@ -21,40 +18,39 @@ export class UserInformation {
 	id: string;
 
 	@Column({
-		nullable: true,
-		comment: 'Identificador del usuario a la que pertenece la información.',
-	})
-	userId: string;
-
-	@Column({
+		type: 'varchar',
 		length: 20,
 		nullable: true,
 		comment: 'Número del documento de identidad',
 	})
 	documentNumber: string;
 
-	@Column('varchar', {
+	@Column({
+		type: 'varchar',
 		length: 255,
 		nullable: true,
 		comment: 'Nombre del usuario',
 	})
 	name: string;
 
-	@Column('varchar', {
+	@Column({
+		type: 'varchar',
 		length: 255,
 		nullable: true,
 		comment: 'Segundo nombre del usuario',
 	})
 	secondName: string;
 
-	@Column('varchar', {
+	@Column({
+		type: 'varchar',
 		length: 255,
 		nullable: true,
 		comment: 'Apellido paterno del usuario',
 	})
 	paternalSurname: string;
 
-	@Column('varchar', {
+	@Column({
+		type: 'varchar',
 		length: 255,
 		nullable: true,
 		comment: 'Apellido materno del usuario',
@@ -62,6 +58,7 @@ export class UserInformation {
 	motherSurname: string;
 
 	@Column({
+		type: 'varchar',
 		length: 255,
 		nullable: true,
 		comment: 'Nombre completo del usuario',
@@ -108,8 +105,4 @@ export class UserInformation {
 	deletedAt: Date;
 
 	// ?=================== RELATIONS ===================
-
-	@OneToOne(() => User, (user) => user.userInfo)
-	@JoinColumn({ name: 'userId' })
-	user: User;
 }

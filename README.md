@@ -16,7 +16,7 @@ facilidad de despliegue.
 - Clona el repositorio y accede al directorio principal:
 
 ```bash
-git clone <URL-del-repositorio>
+git clone https://github.com/raksodiano/TechnicalTests.git
 cd TecnicalTests
 ```
 

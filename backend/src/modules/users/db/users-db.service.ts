@@ -1,5 +1,4 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { isUUID } from 'class-validator';
 import { LoggerService } from '@common/logger/logger.service';
 import {
 	buildFilterConditions,
@@ -61,14 +60,9 @@ export class UsersDbService {
 	async findOne(searchTerm: string): Promise<User> {
 		return await this.userRepository
 			.createQueryBuilder('user')
-			.leftJoinAndSelect('user.userInfo', 'userInfo')
 			.leftJoinAndSelect('user.dashboards', 'dashboards')
-			.where(
-				isUUID(searchTerm)
-					? 'user.id = :searchTerm'
-					: 'user.email = :searchTerm',
-				{ searchTerm },
-			)
+			.where('user.id = :searchTerm', { searchTerm })
+			.orWhere('user.email = :searchTerm', { searchTerm })
 			.getOne()
 			.catch((error) => {
 				this.loggerService.error('Error al buscar el usuario:', error);

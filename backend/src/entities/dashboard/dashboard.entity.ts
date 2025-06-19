@@ -15,18 +15,18 @@ import { Statuses } from '@common/enums/general.enum';
 export class DashboardEntity {
 	// ?=================== MAIN DATA COLUMNS ===================
 
-	@PrimaryGeneratedColumn('uuid', {
-		comment: 'Identificador único generado en formato UUID.',
-	})
+	@PrimaryGeneratedColumn()
 	id: string;
 
 	@Column({
+		type: 'char',
 		nullable: true,
 		comment: 'Identificador del usuario a la que pertenece el dashboard.',
 	})
 	userId: string;
 
-	@Column('text', {
+	@Column({
+		type: 'text',
 		nullable: true,
 		comment: 'Componentes del dashboard',
 	})

@@ -69,7 +69,8 @@ export class DashboardDbService {
 			});
 	}
 
-	async update(id: string, updateDto: any) {
+	async update(id: number, updateDto: any) {
+		console.log(id);
 		const dashboard = await this.dashboardRepository.preload({
 			id,
 			...updateDto,
