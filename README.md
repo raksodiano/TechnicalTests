@@ -17,7 +17,7 @@ facilidad de despliegue.
 
 ```bash
 git clone https://github.com/raksodiano/TechnicalTests.git
-cd TecnicalTests
+cd TechnicalTests
 ```
 
 - Levanta la base de datos con Docker:
