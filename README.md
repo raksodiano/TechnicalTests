@@ -50,8 +50,9 @@ npm run dev
 - email: admin@correo.com
 - pass: 123456
 
-## Nota
+## Notas
 
 - Los archivos .env fueron incluidos únicamente con fines de prueba.
 - La sesión tiene un tiempo de 5min
+- Existe un crud para agregar más usuarios, pero siempre se debe de enviar el token de sesion
 - Me gustó la idea de la prueba, despues de la evaluación comenzaré a ir mejorandola
